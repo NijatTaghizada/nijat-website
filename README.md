@@ -1,32 +1,22 @@
-# React + TypeScript + Vite
+# nijat-website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Personal site of **Nijat Taghizada**: Stanford Data Science, ML for disaster response.
 
-Currently, two official plugins are available:
+The hero is a live cellular-automaton wildfire simulation. Move your cursor to start fires, and press `/` anywhere for a terminal.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- React 19 + TypeScript, bundled with Vite (Node)
+- [Motion](https://motion.dev) for animation
+- Canvas 2D for the fire field, hand-drawn SVG for the data visuals
+- Deployed to GitHub Pages via GitHub Actions on every push to `main`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Develop
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # production build to dist/
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Content lives in `src/data/profile.ts`. Edit that file to update projects, honors, and stats.
