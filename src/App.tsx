@@ -4,6 +4,7 @@ import Hero from './components/Hero'
 import Manifesto from './components/Manifesto'
 import Stats from './components/Stats'
 import Work from './components/Work'
+import Path from './components/Path'
 import Honors from './components/Honors'
 import Impact from './components/Impact'
 import Journey from './components/Journey'
@@ -34,6 +35,7 @@ export default function App() {
         <Manifesto />
         <Stats />
         <Work />
+        <Path />
         <Honors />
         <Impact />
         <Journey />

@@ -69,7 +69,7 @@ function Arc() {
 export default function Journey() {
   return (
     <section className="container section" id="journey">
-      <SectionLabel index="04">Origin & toolkit</SectionLabel>
+      <SectionLabel index="05">Origin & toolkit</SectionLabel>
       <div className="journey">
         <Reveal>
           <Greeting />

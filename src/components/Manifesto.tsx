@@ -2,8 +2,8 @@ import { motion, useScroll, useTransform, type MotionValue } from 'motion/react'
 import { useRef } from 'react'
 
 const TEXT =
-  'Azerbaijan is called the Land of Fire. I grew up there, and now I teach machines to read fire from orbit: turning satellite data into early warnings, and code into tools that help people before, during, and after disaster.'
-const HOT = new Set(['Fire.', 'fire', 'orbit:', 'early', 'warnings,', 'before,', 'during,', 'after'])
+  'Azerbaijan is called the Land of Fire. I grew up there building robots, debating my way to Yale, hiking its trails and writing C++ late into the night. Now at Stanford, I turn data and code into things that help people when it matters most.'
+const HOT = new Set(['Fire.', 'robots,', 'Yale,', 'trails', 'C++', 'help', 'people'])
 
 function Word({ word, progress, range }: { word: string; progress: MotionValue<number>; range: [number, number] }) {
   const opacity = useTransform(progress, range, [0.14, 1])

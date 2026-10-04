@@ -20,7 +20,7 @@ export default function Contact({ onOpenTerminal }: { onOpenTerminal: () => void
     <footer className="contact" id="contact">
       <div className="container">
         <Reveal>
-          <p className="mono contact-kicker">05 — Contact</p>
+          <p className="mono contact-kicker">06 — Contact</p>
           <h2 className="contact-title">
             Let's build something<br />that <em>matters</em>.
           </h2>
@@ -29,6 +29,7 @@ export default function Contact({ onOpenTerminal }: { onOpenTerminal: () => void
           <button className="btn btn-primary" onClick={copy}>
             {copied ? 'Copied ✓' : profile.email}
           </button>
+          <a className="btn" href={`mailto:${profile.personalEmail}`}>{profile.personalEmail}</a>
           <a className="btn" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
           <a className="btn" href={profile.github} target="_blank" rel="noreferrer">GitHub ↗</a>
         </Reveal>

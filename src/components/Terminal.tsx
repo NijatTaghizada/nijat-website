@@ -1,17 +1,17 @@
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
-import { honors, profile, projects } from '../data/profile'
+import { builds, honors, profile } from '../data/profile'
 import { igniteField } from '../lib/ignite'
 
 type Line = { kind: 'in' | 'out'; text: string }
 
 const HELP = `available commands:
   whoami     who is this guy
-  work       selected projects
+  work       things I've built
   honors     awards
   contact    how to reach me
   ignite     start a fire on the hero map
-  goto <s>   jump to work | honors | impact | journey | contact
+  goto <s>   jump to work | path | honors | impact | journey | contact
   linkedin   open LinkedIn
   clear      clear the screen
   exit       close the terminal`
@@ -22,15 +22,15 @@ function run(raw: string, close: () => void): string | null {
     case '': return null
     case 'help': return HELP
     case 'whoami':
-      return `${profile.name}\n${profile.degree}, ${profile.school} ('${String(profile.gradYear).slice(2)})\nML for disaster response · competitive programmer · founder of React Right`
+      return `${profile.name}\n${profile.school} '${String(profile.gradYear).slice(2)} · ${profile.degree}\nbuilder · competitive programmer · debater · founder of React Right`
     case 'work':
     case 'projects':
-      return projects.map(p => `[${p.index}] ${p.title}\n     ${p.stack.join(' · ')}`).join('\n')
+      return builds.map((b, i) => `[0${i + 1}] ${b.title}\n     ${b.tags.join(' · ')}`).join('\n')
     case 'honors':
     case 'awards':
       return honors.map(h => `★ ${h.title}, ${h.org} (${h.note})`).join('\n')
     case 'contact':
-      return `email     ${profile.email}\nlinkedin  ${profile.linkedin}\ngithub    ${profile.github}`
+      return `email     ${profile.email}\npersonal  ${profile.personalEmail}\nlinkedin  ${profile.linkedin}\ngithub    ${profile.github}`
     case 'ignite':
       close()
       window.scrollTo({ top: 0, behavior: 'smooth' })

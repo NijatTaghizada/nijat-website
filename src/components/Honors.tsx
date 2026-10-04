@@ -5,7 +5,7 @@ import { SectionLabel } from './Reveal'
 export default function Honors() {
   return (
     <section className="container section" id="honors">
-      <SectionLabel index="02">Honors</SectionLabel>
+      <SectionLabel index="03">Honors</SectionLabel>
       <ul className="honors">
         {honors.map((h, i) => (
           <motion.li

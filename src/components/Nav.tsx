@@ -2,6 +2,7 @@ import { motion, useScroll, useSpring } from 'motion/react'
 
 const links = [
   ['work', 'Work'],
+  ['path', 'Path'],
   ['honors', 'Honors'],
   ['impact', 'Impact'],
   ['contact', 'Contact'],

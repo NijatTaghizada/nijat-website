@@ -1,5 +1,5 @@
 import { motion } from 'motion/react'
-import { projects, type Project } from '../data/profile'
+import { builds, type Build } from '../data/profile'
 import { Reveal, SectionLabel } from './Reveal'
 
 function Pipeline() {
@@ -91,42 +91,86 @@ function Roc() {
   )
 }
 
-function ProjectCard({ p }: { p: Project }) {
+function Snake() {
+  // Body segments ride a travelling sine wave, like a snake robot's serpentine gait
+  const segs = 14
   return (
-    <article className="project">
-      <Reveal className="project-meta">
-        <div className="project-index mono">{p.index}</div>
-        <div className="project-kicker mono">{p.kicker}</div>
-        <h3 className="project-title">{p.title}</h3>
-        <p className="project-summary">{p.summary}</p>
-        <dl className="project-outcomes">
-          {p.outcomes.map(o => (
-            <div key={o.label}>
-              <dt className="mono">{o.label}</dt>
-              <dd>{o.detail}</dd>
-            </div>
-          ))}
-        </dl>
-        <ul className="chips">
-          {p.stack.map(s => <li key={s}>{s}</li>)}
-        </ul>
-      </Reveal>
-      <Reveal delay={0.15} className="project-visual">
-        {p.visual === 'pipeline' ? <Pipeline /> : <Roc />}
-      </Reveal>
-    </article>
+    <svg viewBox="0 0 400 120" className="viz" role="img" aria-label="Animated snake robot crawling through rubble">
+      {Array.from({ length: 9 }, (_, i) => (
+        <rect key={i} x={i * 46 + (i % 2) * 12} y={i % 3 === 0 ? 92 : 100} width={30 + (i % 3) * 8} height={i % 3 === 0 ? 18 : 10} rx={2} className="rubble" />
+      ))}
+      {Array.from({ length: segs }, (_, i) => (
+        <circle key={i} cx={60 + i * 20} cy={60} r={i === segs - 1 ? 9 : 7} className={i === segs - 1 ? 'snake-head' : 'snake-seg'}
+          style={{ animationDelay: `${-i * 0.12}s` }} />
+      ))}
+      <circle cx={350} cy={60} r={22} className="snake-scan" />
+    </svg>
+  )
+}
+
+function Sensor() {
+  return (
+    <svg viewBox="0 0 200 240" className="viz" role="img" aria-label="Smoke sensor sending an automatic alert">
+      {[0, 1, 2].map(i => (
+        <circle key={i} cx={100} cy={150} r={30} className="sensor-ring" style={{ animationDelay: `${i * 0.8}s` }} />
+      ))}
+      <rect x={70} y={130} width={60} height={40} rx={10} className="viz-node hot" />
+      <circle cx={100} cy={150} r={5} className="sensor-led" />
+      {[0, 1, 2].map(i => (
+        <circle key={i} cx={88 + i * 12} cy={110} r={10 + i * 3} className="smoke" style={{ animationDelay: `${i * 0.6}s` }} />
+      ))}
+      <g className="sensor-alert">
+        <rect x={40} y={20} width={120} height={34} rx={17} className="viz-node" />
+        <circle cx={60} cy={37} r={4} className="sensor-led" />
+        <text x={108} y={41} className="viz-label">Alert sent</text>
+      </g>
+    </svg>
+  )
+}
+
+function Platform() {
+  const phases = ['Before', 'During', 'After']
+  return (
+    <svg viewBox="0 0 300 120" className="viz" role="img" aria-label="Before, during and after phases of the platform">
+      <line x1={30} x2={270} y1={50} y2={50} className="viz-edge" />
+      <motion.line x1={30} x2={270} y1={50} y2={50} className="viz-curve" initial={{ pathLength: 0 }}
+        whileInView={{ pathLength: 1 }} viewport={{ once: true }} transition={{ duration: 1.6, ease: 'easeInOut' }} />
+      {phases.map((p, i) => (
+        <g key={p}>
+          <circle cx={30 + i * 120} cy={50} r={10} className="viz-node hot" />
+          <text x={30 + i * 120} y={88} className="viz-label">{p}</text>
+        </g>
+      ))}
+    </svg>
+  )
+}
+
+const VISUALS = { snake: Snake, sensor: Sensor, platform: Platform, pipeline: Pipeline, roc: Roc }
+
+function BuildCard({ b, i }: { b: Build; i: number }) {
+  const Visual = VISUALS[b.visual]
+  return (
+    <Reveal delay={(i % 3) * 0.08} className={`build build-${b.size}`}>
+      <div className="build-visual"><Visual /></div>
+      <div className="build-body">
+        <div className="build-kicker mono">{b.kicker}</div>
+        <h3 className="build-title">{b.title}</h3>
+        <p className="build-blurb">{b.blurb}</p>
+        <ul className="chips">{b.tags.map(t => <li key={t}>{t}</li>)}</ul>
+      </div>
+    </Reveal>
   )
 }
 
 export default function Work() {
   return (
     <section className="container section" id="work">
-      <SectionLabel index="01">Selected work</SectionLabel>
+      <SectionLabel index="01">Things I've built</SectionLabel>
       <Reveal>
-        <h2 className="section-title">Models with <em>consequences</em>.</h2>
+        <h2 className="section-title">Robots, sensors, models. <em>Whatever helps</em>.</h2>
       </Reveal>
-      <div className="projects">
-        {projects.map(p => <ProjectCard key={p.index} p={p} />)}
+      <div className="builds">
+        {builds.map((b, i) => <BuildCard key={b.title} b={b} i={i} />)}
       </div>
     </section>
   )

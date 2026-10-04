@@ -5,7 +5,7 @@ export default function Impact() {
   const [lead, ...rest] = impact
   return (
     <section className="container section" id="impact">
-      <SectionLabel index="03">Leadership & service</SectionLabel>
+      <SectionLabel index="04">Leadership & service</SectionLabel>
       <Reveal>
         <h2 className="section-title">Code is only half of it. <em>People</em> are the rest.</h2>
       </Reveal>

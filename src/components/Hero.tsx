@@ -27,7 +27,7 @@ export default function Hero() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 1 }}
         >
-          Data Science @ Stanford · Quantitative Finance
+          Stanford '30 · Data Science / CS
         </motion.p>
         <h1 className="hero-name">
           {[first, last].map((word, w) => (
@@ -48,7 +48,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 1, ease }}
         >
-          I build models that <em>see disasters coming</em>.
+          I build things that <em>help when it matters</em>.
         </motion.p>
       </div>
 
