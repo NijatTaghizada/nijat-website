@@ -54,11 +54,15 @@ a:hover { color: var(--accent); text-decoration-color: currentColor; }
 
 /* ---------- Sidebar ---------- */
 .name { font-family: var(--serif); font-weight: 500; font-size: 40px; line-height: 1.05; letter-spacing: -0.01em; margin: 0 0 16px; }
-.intro { margin: 0 0 20px; color: var(--muted); }
+.intro { margin: 0 0 24px; color: var(--muted); max-width: 34ch; }
 .links { list-style: none; padding: 0; margin: 0 0 28px; display: flex; flex-direction: column; gap: 4px; }
 .toc { display: flex; flex-direction: column; gap: 2px; border-left: 1px solid var(--line); padding-left: 14px; margin-bottom: 28px; }
 .toc a { text-decoration: none; color: var(--muted); font-size: 15px; }
-.toc a:hover { color: var(--accent); }
+.toc a { position: relative; transition: color 0.15s; }
+.toc a:hover { color: var(--text); }
+.toc a.active { color: var(--accent); }
+.toc a.active::before { content: ''; position: absolute; left: -15px; top: 4px; bottom: 4px; width: 2px; background: var(--accent); border-radius: 1px; }
+.clocks-label { color: var(--muted); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 4px; }
 .clocks { display: flex; gap: 20px; font-size: 14px; color: var(--muted); }
 .clock .mono { color: var(--text); }
 @media (max-width: 860px) { .toc { display: none; } }
@@ -81,7 +85,8 @@ h2 {
 }
 
 .projects { display: flex; flex-direction: column; gap: 16px; }
-.project { border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; background: var(--surface); }
+.project { border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px; background: var(--surface); transition: border-color 0.2s; }
+.project:hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
 .project h3 { margin: 0; font-size: 18px; font-weight: 600; line-height: 1.35; }
 .project-meta { color: var(--accent); margin: 4px 0 10px; }
 .project p:not(.project-meta) { margin: 0 0 14px; }
@@ -91,7 +96,8 @@ h2 {
 .project-link { font-size: 14px; font-weight: 500; color: var(--accent); text-decoration: none; }
 .project-link:hover { text-decoration: underline; }
 
-.entries { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 18px; }
+.entries { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 20px; }
+.entries li { padding-left: 14px; border-left: 2px solid var(--line); }
 .entry-head { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
 .entry-title { font-weight: 600; }
 .entry-when { color: var(--muted); white-space: nowrap; }

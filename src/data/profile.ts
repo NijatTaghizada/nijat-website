@@ -70,15 +70,28 @@ export const education: Entry[] = [
   { title: 'B.S. (planned): Data Science or Computer Science', org: 'Stanford University', when: 'Class of 2030' },
   { title: 'Summer Session: Applied Statistics; Principles of Data Science', org: 'Stanford University' },
   { title: 'High School Honors Program: Multivariable Calculus; Macroeconomic Analysis', org: 'Boston University' },
-  { title: 'IB Diploma Programme (43/45)', org: 'High school, Baku' },
+  { title: 'IB Diploma Programme (43/45)', org: 'European Azerbaijan School, Baku' },
 ]
 
 export const honors: Entry[] = [
   { title: 'Grand Award, Systems Software', org: 'Regeneron ISEF 2025' },
   { title: 'Semi-finalist', org: 'National Informatics Olympiad, Azerbaijan' },
-  { title: 'Gold medal (essay), silver medal (debate)', org: 'World Scholar’s Cup', body: 'Advanced from Baku through the London Global Round to the Tournament of Champions at Yale.' },
+  { title: 'Gold medal (essay), silver medal (debate)', org: 'World Scholar’s Cup' },
   { title: 'Medals', org: 'International science fairs', body: 'Including iWISE and VILIPO.' },
   { title: 'Awards', org: 'National science fairs in Azerbaijan', body: 'Including Sabahın Alimləri.' },
+]
+
+export const outside: Entry[] = [
+  {
+    title: 'Hiking',
+    org: 'Duke of Edinburgh, European Azerbaijan School hiking team',
+    body: '50+ hours of hiking across different regions of Azerbaijan, picking up first aid and navigation along the way.',
+  },
+  {
+    title: 'Debate & writing',
+    org: 'World Scholar’s Cup',
+    body: 'Debated and wrote essays from the Baku round all the way to the Tournament of Champions at Yale.',
+  },
 ]
 
 export const skills = [

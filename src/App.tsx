@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import FireField from './components/FireField'
-import { education, experience, honors, profile, projects, skills, type Entry } from './data/profile'
+import { education, experience, honors, outside, profile, projects, skills, type Entry } from './data/profile'
 
 function Clock({ city, tz }: { city: string; tz: string }) {
   const [now, setNow] = useState(() => new Date())
@@ -38,10 +38,46 @@ const sections = [
   ['experience', 'Experience'],
   ['honors', 'Honors'],
   ['education', 'Education'],
+  ['outside', 'Outside class'],
   ['skills', 'Skills'],
 ] as const
 
+/** Which section is currently being read, for highlighting the sidebar menu. */
+function useActiveSection() {
+  const [active, setActive] = useState<string>(sections[0][0])
+  const pinnedUntil = useRef(0)
+  useEffect(() => {
+    const update = () => {
+      // Right after a menu click, keep the clicked item highlighted while the page scrolls
+      if (performance.now() < pinnedUntil.current) return
+      // At the very bottom the last sections can't reach the top, so pick the last one
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+        return setActive(sections[sections.length - 1][0])
+      }
+      let current: string = sections[0][0]
+      for (const [id] of sections) {
+        const el = document.getElementById(id)
+        if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.3) current = id
+      }
+      setActive(current)
+    }
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => {
+      window.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
+  }, [])
+  const pin = (id: string) => {
+    pinnedUntil.current = performance.now() + 1200
+    setActive(id)
+  }
+  return [active, pin] as const
+}
+
 export default function App() {
+  const [active, pin] = useActiveSection()
   return (
     <div className="layout">
       <aside className="sidebar">
@@ -60,10 +96,11 @@ export default function App() {
 
         <nav className="toc" aria-label="Sections">
           {sections.map(([id, label]) => (
-            <a key={id} href={`#${id}`}>{label}</a>
+            <a key={id} href={`#${id}`} className={active === id ? 'active' : undefined} onClick={() => pin(id)}>{label}</a>
           ))}
         </nav>
 
+        <p className="clocks-label mono">Local time</p>
         <div className="clocks">
           <Clock city="Baku" tz="Asia/Baku" />
           <Clock city="Stanford" tz="America/Los_Angeles" />
@@ -115,6 +152,11 @@ export default function App() {
         <section id="education">
           <h2>Education</h2>
           <Entries items={education} />
+        </section>
+
+        <section id="outside">
+          <h2>Outside class</h2>
+          <Entries items={outside} />
         </section>
 
         <section id="skills">
