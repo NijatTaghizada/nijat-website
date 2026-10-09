@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import FireField from './components/FireField'
+import FireSim from './components/FireSim'
 import { education, experience, honors, outside, profile, projects, skills, type Entry } from './data/profile'
 
 function Clock({ city, tz }: { city: string; tz: string }) {
@@ -108,15 +108,7 @@ export default function App() {
       </aside>
 
       <main className="content">
-        <figure className="fire">
-          <div className="fire-box">
-            <FireField />
-          </div>
-          <figcaption>
-            A small wildfire-spread model: each dot is a patch of land that can catch fire from its neighbours,
-            pushed by the wind. <strong>Click or tap it to start a fire.</strong>
-          </figcaption>
-        </figure>
+        <FireSim />
 
         <section id="projects">
           <h2>Projects</h2>
