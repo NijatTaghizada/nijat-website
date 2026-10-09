@@ -16,8 +16,9 @@ const RAMP = [
   [255, 170, 60],
   [255, 236, 190],
 ]
-function heatColor(h: number) {
-  const t = Math.min(0.999, h) * (RAMP.length - 1)
+function heatColor(h: number, light: boolean) {
+  // On a light background the near-white end of the ramp disappears, so stop at amber
+  const t = Math.min(0.999, h) * (light ? RAMP.length - 2 : RAMP.length - 1)
   const i = Math.floor(t)
   const f = t - i
   const a = RAMP[i], b = RAMP[i + 1]
@@ -61,9 +62,13 @@ export default function FireField({ onStats }: Props) {
     let heat = new Float32Array(0), next = new Float32Array(0)
     let burned = 0
     let windX = 1, windY = 0.25
+    let dotRGB = '242,239,233'
+    let light = false
     let raf = 0, visible = true, lastStep = 0, lastStats = 0, lastStrike = 0
 
     function resize() {
+      dotRGB = getComputedStyle(canvas).getPropertyValue('--dot-rgb').trim() || dotRGB
+      light = Number(dotRGB.split(',')[0]) < 128
       const rect = canvas.getBoundingClientRect()
       dpr = Math.min(window.devicePixelRatio || 1, 2)
       canvas.width = rect.width * dpr
@@ -137,7 +142,7 @@ export default function FireField({ onStats }: Props) {
       // Unburnt land, batched into a few brightness buckets to keep fillStyle swaps cheap
       const buckets = 5
       for (let b = 0; b < buckets; b++) {
-        ctx.fillStyle = `rgba(242,239,233,${0.05 + b * 0.04})`
+        ctx.fillStyle = `rgba(${dotRGB},${0.06 + b * 0.05})`
         for (let i = 0; i < fuel.length; i++) {
           if (heat[i] >= 0.03) continue
           if (Math.min(buckets - 1, (fuel[i] * buckets) | 0) !== b) continue
@@ -149,9 +154,9 @@ export default function FireField({ onStats }: Props) {
         const h = heat[i]
         if (h < 0.03) continue
         const x = (i % cols) * CELL + CELL / 2, y = ((i / cols) | 0) * CELL + CELL / 2
-        const c = heatColor(h)
+        const c = heatColor(h, light)
         // soft glow halo, then the hot core
-        ctx.globalAlpha = 0.12 * h
+        ctx.globalAlpha = (light ? 0.05 : 0.12) * h
         ctx.fillStyle = c
         ctx.beginPath()
         ctx.arc(x, y, CELL * (0.8 + h), 0, Math.PI * 2)
@@ -209,6 +214,8 @@ export default function FireField({ onStats }: Props) {
     host.addEventListener('pointermove', onMove)
     host.addEventListener('pointerdown', onDown)
     window.addEventListener(IGNITE_EVENT, onIgnite)
+    const scheme = window.matchMedia('(prefers-color-scheme: dark)')
+    scheme.addEventListener('change', resize)
     const ro = new ResizeObserver(resize)
     ro.observe(canvas)
     const io = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting })
@@ -223,6 +230,7 @@ export default function FireField({ onStats }: Props) {
     return () => {
       cancelAnimationFrame(raf)
       ro.disconnect(); io.disconnect()
+      scheme.removeEventListener('change', resize)
       host.removeEventListener('pointermove', onMove)
       host.removeEventListener('pointerdown', onDown)
       window.removeEventListener(IGNITE_EVENT, onIgnite)

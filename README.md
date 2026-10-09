@@ -1,14 +1,14 @@
 # nijat-website
 
-Personal site of **Nijat Taghizada**: Stanford Data Science, ML for disaster response.
+Personal site of **Nijat Taghizada**, a Stanford student (Data Science / CS).
 
-The hero is a live cellular-automaton wildfire simulation. Move your cursor to start fires, and press `/` anywhere for a terminal.
+It includes a small cellular-automaton wildfire simulation you can click to start fires.
 
 ## Stack
 
 - React 19 + TypeScript, bundled with Vite (Node)
-- [Motion](https://motion.dev) for animation
-- Canvas 2D for the fire field, hand-drawn SVG for the data visuals
+- Canvas 2D for the wildfire simulation
+- Light and dark themes via `prefers-color-scheme`
 - Deployed to GitHub Pages via GitHub Actions on every push to `main`
 
 ## Develop
@@ -19,4 +19,4 @@ npm run dev      # http://localhost:5173
 npm run build    # production build to dist/
 ```
 
-Content lives in `src/data/profile.ts`. Edit that file to update projects, honors, and stats.
+Content lives in `src/data/profile.ts`. Edit that file to update projects, experience, honors, and skills.

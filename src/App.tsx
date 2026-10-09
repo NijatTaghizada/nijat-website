@@ -1,47 +1,142 @@
 import { useEffect, useState } from 'react'
-import Nav from './components/Nav'
-import Hero from './components/Hero'
-import Manifesto from './components/Manifesto'
-import Stats from './components/Stats'
-import Work from './components/Work'
-import Path from './components/Path'
-import Honors from './components/Honors'
-import Impact from './components/Impact'
-import Journey from './components/Journey'
-import Contact from './components/Contact'
-import Terminal from './components/Terminal'
+import FireField from './components/FireField'
+import { education, experience, honors, profile, projects, skills, type Entry } from './data/profile'
+
+function Clock({ city, tz }: { city: string; tz: string }) {
+  const [now, setNow] = useState(() => new Date())
+  useEffect(() => {
+    const t = setInterval(() => setNow(new Date()), 30_000)
+    return () => clearInterval(t)
+  }, [])
+  const time = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz })
+  return (
+    <div className="clock">
+      <span className="mono">{time}</span> {city}
+    </div>
+  )
+}
+
+function Entries({ items }: { items: Entry[] }) {
+  return (
+    <ul className="entries">
+      {items.map(e => (
+        <li key={e.title + e.org}>
+          <div className="entry-head">
+            <span className="entry-title">{e.title}</span>
+            {e.when && <span className="entry-when mono">{e.when}</span>}
+          </div>
+          <div className="entry-org">{e.org}</div>
+          {e.body && <p className="entry-body">{e.body}</p>}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+const sections = [
+  ['projects', 'Projects'],
+  ['experience', 'Experience'],
+  ['honors', 'Honors'],
+  ['education', 'Education'],
+  ['skills', 'Skills'],
+] as const
 
 export default function App() {
-  const [term, setTerm] = useState(false)
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      const target = e.target as HTMLElement
-      if (target.closest('input, textarea, [contenteditable]')) return
-      if (e.key === '/' || e.key === '`') {
-        e.preventDefault()
-        setTerm(true)
-      }
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [])
-
   return (
-    <>
-      <Nav onOpenTerminal={() => setTerm(true)} />
-      <Hero />
-      <main>
-        <Manifesto />
-        <Stats />
-        <Work />
-        <Path />
-        <Honors />
-        <Impact />
-        <Journey />
+    <div className="layout">
+      <aside className="sidebar">
+        <h1 className="name">{profile.name}</h1>
+        <p className="intro">
+          Salam! I’m a first-year at Stanford, planning to study Data Science or Computer Science. I grew up in
+          Baku, Azerbaijan. I like machine learning, competitive programming, and building things for real problems,
+          especially natural disasters.
+        </p>
+
+        <ul className="links">
+          <li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+          <li><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a></li>
+          <li><a href={profile.github} target="_blank" rel="noreferrer">GitHub</a></li>
+        </ul>
+
+        <nav className="toc" aria-label="Sections">
+          {sections.map(([id, label]) => (
+            <a key={id} href={`#${id}`}>{label}</a>
+          ))}
+        </nav>
+
+        <div className="clocks">
+          <Clock city="Baku" tz="Asia/Baku" />
+          <Clock city="Stanford" tz="America/Los_Angeles" />
+        </div>
+      </aside>
+
+      <main className="content">
+        <figure className="fire">
+          <div className="fire-box">
+            <FireField />
+          </div>
+          <figcaption>
+            A small wildfire-spread model: each dot is a patch of land that can catch fire from its neighbours,
+            pushed by the wind. <strong>Click or tap it to start a fire.</strong>
+          </figcaption>
+        </figure>
+
+        <section id="projects">
+          <h2>Projects</h2>
+          <div className="projects">
+            {projects.map(p => (
+              <article key={p.title} className="project">
+                <h3>{p.title}</h3>
+                <p className="project-meta mono">{p.meta}</p>
+                <p>{p.body}</p>
+                <div className="project-foot">
+                  <ul className="tags">{p.tags.map(t => <li key={t} className="mono">{t}</li>)}</ul>
+                  {p.links.map(l => (
+                    <a key={l.href} className="project-link" href={l.href} target="_blank" rel="noreferrer">
+                      {l.label} ↗
+                    </a>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="experience">
+          <h2>Experience</h2>
+          <Entries items={experience} />
+        </section>
+
+        <section id="honors">
+          <h2>Honors</h2>
+          <Entries items={honors} />
+        </section>
+
+        <section id="education">
+          <h2>Education</h2>
+          <Entries items={education} />
+        </section>
+
+        <section id="skills">
+          <h2>Skills</h2>
+          <dl className="skills">
+            {skills.map(s => (
+              <div key={s.label}>
+                <dt>{s.label}</dt>
+                <dd>{s.items}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        <footer className="footer">
+          <p>
+            Reach me at <a href={`mailto:${profile.email}`}>{profile.email}</a> or{' '}
+            <a href={`mailto:${profile.personalEmail}`}>{profile.personalEmail}</a>.
+          </p>
+          <p className="mono muted">Made with React · Last updated October 2026</p>
+        </footer>
       </main>
-      <Contact onOpenTerminal={() => setTerm(true)} />
-      <Terminal open={term} onClose={() => setTerm(false)} />
-    </>
+    </div>
   )
 }

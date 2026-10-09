@@ -4,138 +4,86 @@ export const profile = {
   personalEmail: 'taghizada.nijat@gmail.com',
   linkedin: 'https://www.linkedin.com/in/nijat-taghizada/',
   github: 'https://github.com/NijatTaghizada',
-  school: 'Stanford University',
-  degree: 'Data Science / Computer Science',
-  gradYear: 2030,
 }
 
-export const stats = [
-  { value: 43, suffix: '/45', label: 'IB Diploma score' },
-  { value: 500, prefix: '~', label: 'competitive programming problems solved' },
-  { value: 157, label: 'volunteer hours at COP29' },
-  { value: 50, suffix: '+', label: 'hours hiking across Azerbaijan' },
-]
+export type Link = { href: string; label: string }
 
-export type Build = {
+export type Project = {
   title: string
-  kicker: string
-  blurb: string
+  meta: string
+  body: string
   tags: string[]
-  visual: 'snake' | 'sensor' | 'platform' | 'pipeline' | 'roc'
-  size: 'wide' | 'tall' | 'full' | 'normal'
+  links: Link[]
 }
 
-export const builds: Build[] = [
+export const projects: Project[] = [
   {
-    kicker: 'Robotics · React Right',
-    title: 'A snake robot that finds earthquake survivors',
-    blurb: 'A segmented robot that slithers into collapsed rubble where people can’t go, to locate survivors.',
-    tags: ['Robotics', 'Search & rescue'],
-    visual: 'snake',
-    size: 'wide',
+    title: 'Wildfire Predictiveness With Explainable AI',
+    meta: 'Team research project · ISEF 2025 · ISPEC',
+    body:
+      'Co-authored a study on estimating wildfire risk from NASA satellite data using XGBoost and TabNet, with SHAP to explain what drives each prediction. We presented it at Regeneron ISEF 2025 and published it at the ISPEC 17th International Conference on Engineering & Natural Sciences.',
+    tags: ['Python', 'XGBoost', 'TabNet', 'SHAP'],
+    links: [
+      { href: 'https://isef.net/project/soft031t-wildfire-predictiveness-with-explainable-ai', label: 'ISEF project page' },
+    ],
   },
   {
-    kicker: 'Hardware · React Right',
-    title: 'Smoke sensor that calls for help',
-    blurb: 'Detects smoke and automatically alerts first responders. No one has to make the call.',
-    tags: ['Sensors', 'Alerts'],
-    visual: 'sensor',
-    size: 'tall',
+    title: 'React Right',
+    meta: 'Student project · since 2024',
+    body:
+      'A small student group I started to see whether we could build anything useful for the gap between a disaster starting and help arriving. So far that’s an early-stage snake-robot prototype for moving through tight spaces like collapsed buildings, plus the wildfire research above.',
+    tags: ['Robotics', 'Disaster response'],
+    links: [{ href: 'https://nijattaghizada.github.io/reactright-website/', label: 'React Right website' }],
   },
   {
-    kicker: 'Platform · React Right',
-    title: 'Disaster-management platform',
-    blurb: 'One place to help people before, during, and after a natural disaster.',
-    tags: ['Platform', 'Nonprofit'],
-    visual: 'platform',
-    size: 'normal',
-  },
-  {
-    kicker: 'ML · Published at ISPEC',
-    title: 'Wildfire prediction model',
-    blurb: 'Co-authored XGBoost + TabNet models on NASA satellite data, explained with SHAP. Presented at ISEF 2025.',
-    tags: ['XGBoost', 'TabNet', 'SHAP'],
-    visual: 'pipeline',
-    size: 'normal',
-  },
-  {
-    kicker: 'Deep learning · Stanford',
-    title: 'Chest X-ray classifier',
-    blurb: 'A DenseNet121 CNN on NIH chest X-rays reaching 0.80 ROC-AUC. Final project for DATASCI 112.',
-    tags: ['CNN', 'DenseNet121'],
-    visual: 'roc',
-    size: 'full',
+    title: 'Chest X-ray classification',
+    meta: 'Course project · Stanford DATASCI 112',
+    body: 'Trained a DenseNet121 convolutional network to classify NIH chest X-rays. It reached 0.80 ROC-AUC.',
+    tags: ['Python', 'CNN', 'DenseNet121'],
+    links: [],
   },
 ]
 
-export const path = [
-  {
-    when: 'Grade 9',
-    items: [
-      { title: 'World Scholar’s Cup', body: 'Baku → London Global Round → Yale Tournament of Champions. Silver in debate, gold in essay writing.' },
-      { title: 'Competitive programming', body: 'Started grinding C++ on Codeforces, LeetCode and Eolymp: DP, graphs, greedy.' },
-    ],
-  },
-  {
-    when: 'Grade 10',
-    items: [
-      { title: 'Boston University Honors Program', body: 'Multivariable Calculus (A) and Macroeconomic Analysis (A-).' },
-      { title: 'Founded React Right', body: 'Started building technology for disaster response.' },
-      { title: 'Duke of Edinburgh hiking', body: 'Trekked across Azerbaijan’s regions and learned first aid and navigation.' },
-    ],
-  },
-  {
-    when: 'Grade 11',
-    items: [
-      { title: 'Stanford Summer Session', body: 'Applied Statistics and Principles of Data Science for college credit. That’s where data clicked.' },
-      { title: 'COP29 · Baku', body: 'Media operations at the UN climate conference, bridging journalists, activists and delegates.' },
-      { title: 'ISEF 2025 & ISPEC', body: 'Grand Award at Regeneron ISEF; wildfire research published at ISPEC.' },
-    ],
-  },
-  {
-    when: 'Now',
-    items: [
-      { title: 'Stanford University', body: 'Class of 2030, exploring Data Science and Computer Science.' },
-    ],
-  },
-]
+export type Entry = { title: string; org: string; when?: string; body?: string }
 
-export const honors = [
-  { title: 'Grand Award Winner', org: 'Regeneron ISEF', note: 'Systems Software category' },
-  { title: 'Gold & Silver', org: 'World Scholar’s Cup', note: 'Essay · Debate · Yale ToC' },
-  { title: 'National Winner', org: 'Science Fairs', note: 'Sabahın Alimləri & more' },
-  { title: 'Semi-Finalist', org: 'National Informatics Olympiad', note: 'Azerbaijan' },
-  { title: 'Medalist', org: 'International Science Fairs', note: 'iWISE, VILIPO & more' },
-]
-
-export const impact = [
+export const experience: Entry[] = [
   {
-    role: 'Founder',
+    title: 'Founder',
     org: 'React Right',
-    body: 'A nonprofit building technology for natural disasters, from a rubble-crawling snake robot to sensors that alert first responders on their own.',
-    phases: ['Before', 'During', 'After'],
+    when: '2024 – present',
+    body: 'Started React Right in 2024 (see Projects above).',
   },
   {
-    role: 'Captain',
-    org: 'FIRST Global Team Azerbaijan',
-    body: 'Led the national robotics team: programming, match strategy, and outreach on an international stage.',
+    title: 'Team Captain',
+    org: 'FIRST Global, Team Azerbaijan',
+    body: 'Captained Azerbaijan’s team at the FIRST Global robotics challenge. I coordinated programming, match strategy, and outreach.',
   },
   {
-    role: 'Media Operations',
-    org: 'COP29 · UNFCCC',
-    body: '157 hours supporting logistics and filming, and acting as a bridge between journalists, activists and delegates.',
+    title: 'Media Operations Volunteer',
+    org: 'COP29 (UNFCCC), Baku',
+    when: '2024',
+    body: '157 volunteer hours helping with logistics and filming, and working with journalists and delegates.',
   },
 ]
 
-export const greetings = [
-  { word: 'Hello', lang: 'English' },
-  { word: 'Salam', lang: 'Azərbaycanca' },
-  { word: 'Привет', lang: 'Русский' },
-  { word: 'Merhaba', lang: 'Türkçe' },
+export const education: Entry[] = [
+  { title: 'B.S. (planned): Data Science or Computer Science', org: 'Stanford University', when: 'Class of 2030' },
+  { title: 'Summer Session: Applied Statistics; Principles of Data Science', org: 'Stanford University' },
+  { title: 'High School Honors Program: Multivariable Calculus; Macroeconomic Analysis', org: 'Boston University' },
+  { title: 'IB Diploma Programme (43/45)', org: 'High school, Baku' },
 ]
 
-export const toolkit = {
-  Code: ['Python', 'C++', 'Java'],
-  'ML / Data': ['PyTorch', 'TensorFlow', 'scikit-learn', 'XGBoost', 'SHAP', 'pandas', 'NumPy'],
-  Arenas: ['Codeforces', 'LeetCode', 'Eolymp'],
-}
+export const honors: Entry[] = [
+  { title: 'Grand Award, Systems Software', org: 'Regeneron ISEF 2025' },
+  { title: 'Semi-finalist', org: 'National Informatics Olympiad, Azerbaijan' },
+  { title: 'Gold medal (essay), silver medal (debate)', org: 'World Scholar’s Cup', body: 'Advanced from Baku through the London Global Round to the Tournament of Champions at Yale.' },
+  { title: 'Medals', org: 'International science fairs', body: 'Including iWISE and VILIPO.' },
+  { title: 'Awards', org: 'National science fairs in Azerbaijan', body: 'Including Sabahın Alimləri.' },
+]
+
+export const skills = [
+  { label: 'Programming', items: 'Python, C++, Java' },
+  { label: 'ML / data', items: 'pandas, NumPy, scikit-learn, PyTorch, TensorFlow, SHAP' },
+  { label: 'Competitive programming', items: 'Around 500 problems on Codeforces, LeetCode and Eolymp' },
+  { label: 'Languages', items: 'English and Azerbaijani (native), Russian, Turkish' },
+]
