@@ -11,12 +11,14 @@ export default function FireSim() {
   const [wind, setWind] = useState(WINDS[1].value)
   const [resetKey, setResetKey] = useState(0)
   const [stats, setStats] = useState<FireStats>({ burning: 0, burnedPct: 0 })
-  const [touched, setTouched] = useState(false)
 
   return (
     <figure className="sim">
+      <div className="sim-head">
+        <h2 className="sim-title">How a wildfire spreads</h2>
+        <p className="sim-sub">Click anywhere on the map to start a fire, then try changing the wind.</p>
+      </div>
       <div className="sim-top">
-        <span className="sim-title">Wildfire spread, simulated</span>
         <ul className="sim-legend">
           <li><i className="sw sw-veg" /> Vegetation</li>
           <li><i className="sw sw-fire" /> Burning</li>
@@ -25,8 +27,7 @@ export default function FireSim() {
       </div>
 
       <div className="sim-box">
-        <FireField wind={wind} resetKey={resetKey} onStats={setStats} onUserIgnite={() => setTouched(true)} />
-        {!touched && <div className="sim-hint">Click or drag to start a fire</div>}
+        <FireField wind={wind} resetKey={resetKey} onStats={setStats} />
         {wind > 0 && <div className="sim-wind" aria-hidden="true">wind →</div>}
       </div>
 
@@ -50,13 +51,20 @@ export default function FireSim() {
         <button className="sim-reset" onClick={() => setResetKey(k => k + 1)}>Reset</button>
       </div>
 
-      <figcaption>
-        Each dot is a patch of land, and darker green means more vegetation to burn. A burning patch can set its
-        neighbours alight, and that's more likely when they have lots of fuel or the wind is blowing toward them.
-        Burned land turns to ash and slowly grows back. It's a toy version of a cellular-automaton
-        spread model. <a href="#projects">My ISEF project</a> worked on a related problem: predicting wildfire risk
-        from satellite data.
-      </figcaption>
+      <details className="sim-info">
+        <summary>How this works</summary>
+        <ul>
+          <li>Each dot is a patch of land. Darker green means more vegetation, so more fuel to burn.</li>
+          <li>Fire jumps to neighbouring patches, more easily when they have lots of fuel or the wind blows toward them.</li>
+          <li>Bare patches with little fuel act as firebreaks, so fires stop there.</li>
+          <li>Burned land turns to ash and slowly grows back.</li>
+        </ul>
+        <p>
+          It's a simple cellular-automaton model, not a real forecast.{' '}
+          <a href="#projects">My ISEF project</a> worked on a related problem: predicting wildfire risk from
+          satellite data.
+        </p>
+      </details>
     </figure>
   )
 }
