@@ -16,6 +16,9 @@ export default function FireSim() {
     <figure className="sim">
       <div className="sim-head">
         <h2 className="sim-title">How a wildfire spreads</h2>
+        <p className="sim-why">
+          Wildfires are what my research has focused on, so here's a small, hands-on look at how they spread.
+        </p>
         <p className="sim-sub">Click anywhere on the map to start a fire, then try changing the wind.</p>
       </div>
       <div className="sim-top">
@@ -60,9 +63,9 @@ export default function FireSim() {
           <li>Burned land turns to ash and slowly grows back.</li>
         </ul>
         <p>
-          It's a simple cellular-automaton model, not a real forecast.{' '}
-          <a href="#projects">My ISEF project</a> worked on a related problem: predicting wildfire risk from
-          satellite data.
+          This is a deliberately simple cellular-automaton model for illustration, not a real forecast. My actual
+          research, the <a href="#projects">ISEF project</a> below, used machine learning on NASA satellite data
+          to predict wildfire risk.
         </p>
       </details>
     </figure>
