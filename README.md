@@ -2,8 +2,6 @@
 
 Personal site of **Nijat Taghizada**, a Stanford student (Data Science / CS).
 
-It includes a small cellular-automaton wildfire simulation you can click to start fires.
-
 ## Stack
 
 - React 19 + TypeScript, bundled with Vite (Node)
