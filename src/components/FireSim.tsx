@@ -64,8 +64,8 @@ export default function FireSim() {
         </ul>
         <p>
           This is a deliberately simple cellular-automaton model for illustration, not a real forecast. My actual
-          research, the <a href="#projects">ISEF project</a> below, used machine learning on NASA satellite data
-          to predict wildfire risk.
+          research (see <a href="#projects">Projects</a> below) uses machine learning on satellite, weather and
+          fuel data to predict which new fires will grow large.
         </p>
       </details>
     </figure>

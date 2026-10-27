@@ -18,12 +18,13 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: 'Wildfire Predictiveness With Explainable AI',
-    meta: 'Team research project · ISEF 2025 · ISPEC',
+    title: 'Wildfire Severity Prediction',
+    meta: 'Research project · 2026 · follow-up to ISEF',
     body:
-      'Co-authored a study on estimating wildfire risk from NASA satellite data using XGBoost and TabNet, with SHAP to explain what drives each prediction. We presented it at Regeneron ISEF 2025 and published it at the ISPEC 17th International Conference on Engineering & Natural Sciences.',
-    tags: ['Python', 'XGBoost', 'TabNet', 'SHAP'],
+      'When a satellite first spots a new fire in California, can we tell whether it will grow past 1,000 acres? I built a dataset of 5,565 California fires from 2012–2024 by matching NASA VIIRS detections to US Forest Service fire records, then added weather, fuel, vegetation and terrain data from before each fire was seen. I trained models including XGBoost and an explainable boosting machine, and used SHAP to see what drives each prediction. It follows up our ISEF project, Wildfire Predictiveness With Explainable AI, which won a Grand Award at Regeneron ISEF 2025.',
+    tags: ['Python', 'XGBoost', 'EBM', 'SHAP'],
     links: [
+      { href: 'https://github.com/NijatTaghizada/wildfire-severity-prediction', label: 'Code on GitHub' },
       { href: 'https://isef.net/project/soft031t-wildfire-predictiveness-with-explainable-ai', label: 'ISEF project page' },
     ],
   },
