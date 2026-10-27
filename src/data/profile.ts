@@ -30,9 +30,9 @@ export const projects: Project[] = [
   },
   {
     title: 'React Right',
-    meta: 'Student project · since 2024',
+    meta: 'Startup · founder · since 2024',
     body:
-      'A small student group I started to see whether we could build anything useful for the gap between a disaster starting and help arriving. So far that’s an early-stage snake-robot prototype for moving through tight spaces like collapsed buildings, plus the wildfire research above.',
+      'An early-stage startup I founded to build technology for the gap between a disaster starting and help arriving. So far that’s a first snake-robot prototype for moving through tight spaces like collapsed buildings, plus the wildfire research above.',
     tags: ['Robotics', 'Disaster response'],
     links: [{ href: 'https://nijattaghizada.github.io/reactright-website/', label: 'React Right website' }],
   },
