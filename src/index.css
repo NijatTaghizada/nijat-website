@@ -1,10 +1,10 @@
 :root {
-  /* 60-30-10: near-black background, blue-violet waves and glow, soft rose highlights.
+  /* 60-30-10: warm near-black background, coral waves and glow, soft gold highlights.
      Text and greys are neutral mixes of the off-white text colour. */
-  --bg: #05060b;
-  --secondary: #7b6dff;
-  --accent: #ff8fa8;
-  --text: #f1eff6;
+  --bg: #0a0608;
+  --secondary: #ff6a48;
+  --accent: #ffc98a;
+  --text: #f7efe9;
   --muted: color-mix(in srgb, var(--text) 62%, var(--bg));
   --line: color-mix(in srgb, var(--text) 14%, var(--bg));
   --serif: 'Newsreader', Georgia, serif;

@@ -6,7 +6,7 @@ Personal site of **Nijat Taghizada**, a Stanford student (Data Science / CS).
 
 - React 19 + TypeScript, bundled with Vite (Node)
 - A one-page intro that types itself out on load
-- Dark 60-30-10 palette (near-black, blue-violet, rose) with an animated silk-wave canvas and soft glows
+- Dark 60-30-10 palette (warm near-black, coral, gold) with an animated silk-wave canvas and soft glows
 - Deployed to GitHub Pages via GitHub Actions on every push to `main`
 
 ## Develop

@@ -23,7 +23,4 @@ export const now: Line[] = [
     text: 'I’m also building React Right, an early-stage startup working on technology for disaster response.',
     link: { href: 'https://nijattaghizada.github.io/reactright-website/', phrase: 'React Right' },
   },
-  {
-    text: 'Before Stanford, I captained Azerbaijan’s FIRST Global robotics team and volunteered at COP29 in Baku.',
-  },
 ]
