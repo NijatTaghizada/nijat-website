@@ -6,7 +6,7 @@ Personal site of **Nijat Taghizada**, a Stanford student (Data Science / CS).
 
 - React 19 + TypeScript, bundled with Vite (Node)
 - A one-page intro that types itself out on load
-- Light and dark themes via `prefers-color-scheme`
+- Dark theme in three colours (ink blue, ivory, soft blue) with slow waves along the bottom
 - Deployed to GitHub Pages via GitHub Actions on every push to `main`
 
 ## Develop

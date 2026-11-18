@@ -1,25 +1,14 @@
 :root {
-  --bg: #fbfaf7;
-  --surface: #ffffff;
-  --text: #1c1917;
-  --muted: #6b645c;
-  --line: #e7e3dc;
-  --accent: #c2410c;
+  /* Three colours only. Everything else is a faded mix of these. */
+  --bg: #0a0e17;
+  --text: #ece8e1;
+  --accent: #6ea8fe;
+  --muted: color-mix(in srgb, var(--text) 62%, var(--bg));
+  --line: color-mix(in srgb, var(--text) 16%, var(--bg));
   --serif: 'Newsreader', Georgia, serif;
   --sans: 'IBM Plex Sans', system-ui, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, monospace;
-  color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #141210;
-    --surface: #1b1916;
-    --text: #ede9e3;
-    --muted: #a39b91;
-    --line: #2e2a26;
-    --accent: #fb923c;
-    color-scheme: dark;
-  }
+  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -41,6 +30,7 @@ a:hover { color: var(--accent); text-decoration-color: currentColor; }
 
 /* ---------- Page ---------- */
 .page {
+  position: relative; z-index: 1;
   max-width: 760px; min-height: 100vh; margin: 0 auto; padding: 72px 32px;
   display: flex; flex-direction: column; justify-content: center;
 }
@@ -68,5 +58,17 @@ a:hover { color: var(--accent); text-decoration-color: currentColor; }
 .clocks { margin: 0; display: flex; gap: 20px; font-size: 14px; color: var(--muted); }
 .clock .mono { color: var(--text); }
 
+/* ---------- Waves ---------- */
+.waves {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 0;
+  height: clamp(90px, 20vh, 190px); overflow: hidden; pointer-events: none;
+}
+.waves svg {
+  position: absolute; left: 0; bottom: 0; width: 200%; height: 100%;
+  animation: drift linear infinite;
+}
+.waves svg:nth-child(2) { animation-direction: reverse; }
+@keyframes drift { to { transform: translateX(-50%); } }
+
 @media (max-width: 560px) { .page { padding: 48px 16px; justify-content: flex-start; } }
-@media (prefers-reduced-motion: reduce) { .caret { animation: none; } .after-typing { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .caret, .waves svg { animation: none; } .after-typing { transition: none; } }
