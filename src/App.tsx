@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import FireSim from './components/FireSim'
+import TypedText from './components/Typed'
+import { useTyped } from './components/useTyped'
 import { education, experience, honors, outside, profile, projects, skills, type Entry } from './data/profile'
 
 function Clock({ city, tz }: { city: string; tz: string }) {
@@ -32,6 +34,13 @@ function Entries({ items }: { items: Entry[] }) {
     </ul>
   )
 }
+
+const INTRO =
+  'Salam! I’m a first-year at Stanford, planning to study Data Science or Computer Science. I grew up in Baku, ' +
+  'Azerbaijan. I like machine learning, competitive programming, and building things for real problems, ' +
+  'especially natural disasters.'
+const TYPED = [profile.name, INTRO]
+const SPEEDS = [75, 22]
 
 const sections = [
   ['projects', 'Projects'],
@@ -78,16 +87,19 @@ function useActiveSection() {
 
 export default function App() {
   const [active, pin] = useActiveSection()
+  const { counts, done } = useTyped(TYPED, { speeds: SPEEDS })
+  const typingName = counts[0] < TYPED[0].length
   return (
     <div className="layout">
       <aside className="sidebar">
-        <h1 className="name">{profile.name}</h1>
+        <h1 className="name">
+          <TypedText text={TYPED[0]} count={counts[0]} caret={typingName} />
+        </h1>
         <p className="intro">
-          Salam! I’m a first-year at Stanford, planning to study Data Science or Computer Science. I grew up in
-          Baku, Azerbaijan. I like machine learning, competitive programming, and building things for real problems,
-          especially natural disasters.
+          <TypedText text={TYPED[1]} count={counts[1]} caret={!typingName} />
         </p>
 
+        <div className={done ? 'after-typing shown' : 'after-typing'}>
         <ul className="links">
           <li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
           <li><a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a></li>
@@ -104,6 +116,7 @@ export default function App() {
         <div className="clocks">
           <Clock city="Baku" tz="Asia/Baku" />
           <Clock city="Stanford" tz="America/Los_Angeles" />
+        </div>
         </div>
       </aside>
 
