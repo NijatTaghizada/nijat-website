@@ -67,15 +67,19 @@ export default function SilkWaves() {
         for (let i = 0; i < r.lines; i++) {
           const p = i / (r.lines - 1)
           const fromCentre = Math.abs(p - 0.5) * 2
-          // Centre lines catch the warm accent; the rest stay indigo
-          const color = mix(secondary, accent, Math.exp(-(((p - 0.5) / 0.1) ** 2)) * 0.85)
           const a = r.alpha * (0.2 + 0.8 * (1 - fromCentre))
+          // Each line shifts from the cool colour into the warm one along its length,
+          // and where that shift happens slides back and forth over time
+          const shift = 0.62 + Math.sin(t * 0.15 + r.phase + p * 1.5) * 0.14
+          const mid = mix(secondary, accent, 0.5)
 
           const grad = ctx.createLinearGradient(0, 0, w, 0)
-          grad.addColorStop(0, rgba(color, 0))
-          grad.addColorStop(0.3, rgba(color, a * 0.25))
-          grad.addColorStop(0.65, rgba(color, a))
-          grad.addColorStop(1, rgba(color, a * 0.7))
+          grad.addColorStop(0, rgba(secondary, 0))
+          grad.addColorStop(0.3, rgba(secondary, a * 0.25))
+          grad.addColorStop(shift - 0.12, rgba(secondary, a))
+          grad.addColorStop(shift, rgba(mid, a))
+          grad.addColorStop(Math.min(0.99, shift + 0.16), rgba(accent, a * 0.9))
+          grad.addColorStop(1, rgba(accent, a * 0.6))
           ctx.strokeStyle = grad
 
           ctx.beginPath()

@@ -1,22 +1,21 @@
-import { useEffect, useState } from 'react'
 import SilkWaves from './components/SilkWaves'
 import TypedText from './components/Typed'
 import { useTyped } from './components/useTyped'
-import { intro, kicker, now, profile } from './data/profile'
+import { intro, now, profile, type Line } from './data/profile'
 
 const TYPED = [profile.name, intro]
-const SPEEDS = [75, 22]
+const SPEEDS = [80, 24]
 
-function Clock({ city, tz }: { city: string; tz: string }) {
-  const [time, setTime] = useState(() => new Date())
-  useEffect(() => {
-    const t = setInterval(() => setTime(new Date()), 30_000)
-    return () => clearInterval(t)
-  }, [])
+/** Renders a sentence with its link phrase turned into a link. */
+function Sentence({ line }: { line: Line }) {
+  if (!line.link) return <p>{line.text}</p>
+  const [before, after] = line.text.split(line.link.phrase)
   return (
-    <span className="clock">
-      {city} <span className="clock-time">{time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz })}</span>
-    </span>
+    <p>
+      {before}
+      <a href={line.link.href} target="_blank" rel="noreferrer">{line.link.phrase}</a>
+      {after}
+    </p>
   )
 }
 
@@ -31,7 +30,6 @@ export default function App() {
       <div className="shade" aria-hidden="true" />
 
       <main className="page">
-        <p className="kicker">{kicker}</p>
         <h1 className="name">
           <TypedText text={TYPED[0]} count={counts[0]} caret={typingName} />
         </h1>
@@ -40,33 +38,13 @@ export default function App() {
         </p>
 
         <div className={done ? 'after-typing shown' : 'after-typing'}>
-          <dl className="now">
-            {now.map(line => (
-              <div key={line.label}>
-                <dt>{line.label}</dt>
-                <dd>
-                  {line.text}
-                  {line.link && (
-                    <>
-                      {' '}
-                      <a href={line.link.href} target="_blank" rel="noreferrer">{line.link.label} ↗</a>
-                    </>
-                  )}
-                </dd>
-              </div>
-            ))}
-          </dl>
-
-          <ul className="links">
-            <li><a className="btn btn-primary" href={`mailto:${profile.email}`}>{profile.email}</a></li>
-            <li><a className="btn" href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a></li>
-            <li><a className="btn" href={profile.github} target="_blank" rel="noreferrer">GitHub</a></li>
-          </ul>
-
-          <p className="clocks">
-            <Clock city="Baku" tz="Asia/Baku" />
-            <span className="clock-sep">·</span>
-            <Clock city="Stanford" tz="America/Los_Angeles" />
+          <div className="now">
+            {now.map(line => <Sentence key={line.text} line={line} />)}
+          </div>
+          <p className="links">
+            <a href={`mailto:${profile.email}`}>Email</a>
+            <a href={profile.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
           </p>
         </div>
       </main>
